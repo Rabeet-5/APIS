@@ -8,8 +8,8 @@ app.use('/api/students', StuRoutes)
 app.use(express.json())
 
 //Sources Link
-const DBlink = process.env.MONGO_URI
-const Port = process.env.PORT;
+const DBlink = process.env.MONGO_URI;
+const Port = process.env.PORT || 5000;
 
 mongoose.connect(DBlink).
     then(() => {

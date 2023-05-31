@@ -1,0 +1,188 @@
+/* body{
+    margin: auto;
+}
+
+.Anim{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    padding: 100px;
+    margin: auto;
+    margin-top: 40px;
+    background-color: whitesmoke;
+    border: 2px solid black;
+    animation-name: text;
+    animation-duration: 5s;
+    animation-timing-function: ease-out;
+    position:relative;
+    top: 0;
+    left: 0;
+    transition-property: all;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    
+}
+
+.Anim:hover{
+    width: 350px;
+    height: 350px;
+    background-color: darkorange;
+    color: crimson;
+    font-weight: 900;
+    border-radius: 30px;
+}
+
+h1{
+    animation-name: text;
+    animation-duration: 5s;
+    position:relative;
+    top: 0;
+    left: 0;   
+    
+    /* animation-fill-mode: linear ; */
+/* } */
+
+/* @keyframes text{
+
+    0%{
+        top: 0;
+        color: burlywood;
+    }
+    25%{
+        top: 0px;
+        left: 200px;
+        color: darkgreen;
+    }
+     100%{
+        top: 0;
+        left: 0px; */
+    /* } 
+
+       50%{
+        top: 100px;
+         left: 100px; 
+         color: darkmagenta;
+    }  */
+
+     /* 75%{
+        top: 100px;
+        right: 0px;
+        color: darkorange;
+    }
+     100%{
+        bottom: 100px;
+        right: 100px;
+        color: darkgray;
+    }     */
+
+
+
+/* } */ 
+
+/* 
+.container{
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    border: 3px solid black;
+}
+
+.box{
+    background-color: burlywood;
+    font-weight: bolder;
+    font-size: 30px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.box:hover{
+    /* transform: rotate(45deg); */
+    /* transform: skew(-10deg); */
+
+    /* hover krny pr box ka size increase hojaye usky lye */
+    /* transform: scale(1); */
+
+    /* transform: translateX(120px);
+    transform: translateY(10px);
+} */ 
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:sans-serif;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #2b323c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid black;
+}
+
+
+/* .auto-typing{
+    color: yellow;
+    font-weight: bolder;
+    font-size: 50px;
+} */
+
+.page{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: testing;
+    animation-duration: 3s;
+    animation-direction: normal;
+    position: relative;
+    top: 0;
+    left: 0;
+    color: white;
+    border: 2px solid black;
+}
+
+body{
+    background-color: #2b323c;
+}
+
+    @keyframes testing{
+
+       0%{
+        top: -0;
+        color: blue;
+       }
+    
+       25%{
+        left: 200px;
+        color: aqua;
+        top: 0;
+       }
+       50%{
+        top:200px ;
+        left: 200px;
+       }
+
+       75%{
+        top: 200px;
+        right: 200px;
+
+       }
+
+       100%{
+        bottom: 200px;
+        right: 200px;
+       }
+    }

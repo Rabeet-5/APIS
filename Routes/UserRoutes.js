@@ -5,47 +5,63 @@ const { SendResponse } = require('../Helper/helper');
 const bcrypt = require('bcryptjs')
 
 
-route.post(('/'), async (req, res) => {
 
-    const { userName, email, password } = req.body
-    const obj = { userName, email, password }
-    let requiredArr = ['userName', 'email', 'password']
+route.post(('/signup'), async (req, res) => {
+
+    const { email, userName, password } = req.body
+    let obj = { email, password, userName };
+    let reqArray = ['email', 'password', 'userName'];
     let errArr = [];
 
-    requiredArr.forEach((x) => {
-        if (!obj[x]) {
-            errArr.push(x);
+    reqArray.forEach((objects) => {
+        if (!obj[objects]) {
+            errArr.push(objects)
         }
     })
 
     if (errArr > 0) {
-        res.send(SendResponse(false, null, 'some Fields are missing', errArr)).status(400)
-        return;
+        res.send(SendResponse(false, null, 'Some fields are missing')).status(403)
     }
+
     else {
+        const hashpassword = await bcrypt.hash(obj.password, 10)
+        obj.password = hashpassword;
 
-        const hashpass = await bcrypt.hash(obj.password);
-        obj.password = hashpass;
+        const ExistingUser = await UserModel.findOne({ email });
 
-        const existingUser = await UserModel.findOne({ email })
-
-        if (existingUser) {
-             res.send(SendResponse(false, null, 'this email is already in use')).status(403)
+        if (ExistingUser) {
+            res.send(SendResponse(false, null, 'this email is already in use')).status(404)
         }
-
         else {
             UserModel.create(obj)
-                .then((results) => {
-                    res.send(SendResponse(true, results, 'User Created Succesffuly')).status(200);
-                    console.log('Success')
+                .then((user) => {
+                    res.send(SendResponse(true, user, 'User Created ')).status(200)
                 })
                 .catch((err) => {
-                    res.send(SendResponse(false, err, 'Internal Server Error')).status(404)
-                    console.log('ERROR')
+                    res.send(SendResponse(false, null, 'Cridentials Error', err)).status(404)
                 })
         }
-    }
 
+    }
+})
+
+route.post(('/login'), async (req, res) => {
+    const { email, password } = req.body;
+    let obj = { email, password };
+
+    UserModel.findOne({ email })
+        .then(async (x) => {
+            const compare = await bcrypt.compare(obj.password, x.password)
+            if (compare) {
+                res.send(SendResponse(true, x, 'User Founded And Logged in')).status(200)
+            }
+            else {
+                res.send(SendResponse(false, null, 'No user Exist on this email')).status(403)
+            }
+        })
+        .catch((err) => {
+            res.send(SendResponse(false, null, 'internal server Error', err)).status(404)
+        })
 })
 
 

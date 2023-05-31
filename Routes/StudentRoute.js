@@ -3,7 +3,7 @@ const Route = express.Router()
 const { SendResponse } = require('../Helper/helper')
 const StudentModel = require('../Model/studentModel')
 
-Route.get('/', async (res, req) => {
+Route.get('/', async (req ,res ) => {
     try {
         const result = await StudentModel.find()
         if (!result) {
@@ -20,7 +20,7 @@ Route.get('/', async (res, req) => {
 })
 
 
-Route.get('/search', async (res, req) => {
+Route.get('/search', async (req ,res) => {
 
     let { firstname, lastname } = req.body;
     if (firstname) {
@@ -39,7 +39,7 @@ Route.get('/search', async (res, req) => {
 })
 
 
-Route.get('/:id', async (res, req) => {
+Route.get('/:id', async (req ,res) => {
     try {
 
         let id = req.params.id;
@@ -59,7 +59,7 @@ Route.get('/:id', async (res, req) => {
 
 })
 
-Route.post('/', async (res, req) => {
+Route.post('/', async (req ,res) => {
 
     let { firstname, lastname, contact, course } = req.body
     try {
@@ -79,10 +79,11 @@ Route.post('/', async (res, req) => {
         }
         if (Arr > 0) {
             res.send(SendResponse(false, Arr, null, 'Required all fields')).status(400)
+            return;
         }
         else {
             let obj = { firstname, lastname, contact, course };
-            let students = StudentModel(obj);
+            let students = new StudentModel(obj);
             await students.save();
             if (!students) {
                 res.send(SendResponse(false, null, 'Internal server error')).status(400)
@@ -92,14 +93,14 @@ Route.post('/', async (res, req) => {
             }
 
         }
-
+        console.log('Data Posted')
     } catch (error) {
         res.send(SendResponse(false, null, 'Server error'))
     }
 })
 
 
-Route.put('/:id', async (res, req) => {
+Route.put('/:id', async (req ,res) => {
     try {
         let id = req.params.id;
         let result = await StudentModel.findById(id);
@@ -124,7 +125,7 @@ Route.put('/:id', async (res, req) => {
 })
 
 
-Route.delete('/:id', async (res, req) => {
+Route.delete('/:id', async (req ,res) => {
     try{
         let id  = req.params.id;
         let result = await StudentModel.findById(id);
